@@ -18,6 +18,10 @@ Ciclista::Ciclista(string nome,string nacionalidade,char sexo,int idade):Membro(
 	Tempo tempoContraRelogio();
 }
 
+Ciclista::Ciclista(){
+
+}
+
 
 vector<TempoRef> Ciclista::getTemposCopy() const{
 	return tempos;
@@ -69,7 +73,6 @@ Tempo Ciclista::getTempoMontanha(){
 	vector<TempoRef>::iterator it;
 	for( it=tempos.begin();it!=tempos.end();it++){
 		auxiliar=(*it).get()->getTempoMontanha();
-		tempos[3]->getTempoMontanha();
 		tempoMontanha=tempoMontanha+auxiliar;
 	}
 	return tempoMontanha;

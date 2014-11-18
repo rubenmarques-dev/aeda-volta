@@ -26,6 +26,7 @@ protected:
 
 public:
 	Membro(string nome,string nacionalidade,char sexo,int idade);
+	Membro();
 	string getNome();
 	string getNacionalidade();
 	char getSexo();

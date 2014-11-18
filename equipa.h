@@ -33,12 +33,15 @@ private:
 	vector<Ciclista > ciclistas;
 public:
 	Equipa(string designacao, string pais, Patrocinador patrocinador);
+	Equipa();
 	string getDesignacao() const;
 	string getPais() const;
 	int getIdEquipa() const;
 	Patrocinador getPatrocinador() const;
 	vector<Membro *> & getMembros();
+	vector<Membro *> getMembrosCopy();
 	vector<Ciclista> & getCiclistas();
+	vector<Ciclista>  getCiclistasCopy();
 	void setIdEquipa(int idEquipa);
 	void setPatrocinador(Patrocinador patrocinador);
 	void setDesignacao(string designacao);

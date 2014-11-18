@@ -18,6 +18,9 @@ Membro::Membro(string nome,string nacionalidade,char sexo,int idade){
 	this->idade=idade;
 }
 
+Membro::Membro(){
+
+}
 
 string Membro::getNome(){
 	return nome;

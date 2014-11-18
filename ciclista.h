@@ -27,6 +27,7 @@ private:
 
 public:
 	Ciclista(string nome,string nacionalidade,char sexo,int idade);
+	Ciclista();
 	string info();
 	static int getUltimoCiclista();
 	vector<TempoRef> getTemposCopy() const;

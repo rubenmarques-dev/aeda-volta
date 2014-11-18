@@ -19,6 +19,9 @@ Equipa::Equipa(string designacao, string pais, Patrocinador patrocinador){
 	id=++ultimaEquipa;
 }
 
+Equipa::Equipa(){
+
+}
 int Equipa::getIdEquipa() const{
 	return id;
 }
@@ -39,7 +42,15 @@ vector<Membro *> & Equipa::getMembros(){
 	return membros;
 }
 
+vector<Membro *> Equipa::getMembrosCopy(){
+	return membros;
+}
+
 vector<Ciclista> & Equipa::getCiclistas(){
+	return ciclistas;
+}
+
+vector<Ciclista>  Equipa::getCiclistasCopy(){
 	return ciclistas;
 }
 
@@ -66,13 +77,12 @@ bool Equipa::addCiclista(Ciclista ciclista1){
 
 bool Equipa::removeCiclista(int idCiclista){
 	bool existe=false;
-	for(unsigned int i=0;i<ciclistas.size();i++){
-		if(ciclistas[i].getId()==idCiclista){
-			ciclistas.erase(ciclistas.begin()+i);
+
+	for(vector<Ciclista>::iterator it=ciclistas.begin();it!=ciclistas.end();it++){
+
+		if((*it).getId()==idCiclista){
+			ciclistas.erase(it);
 			existe=true;
-			for (unsigned int k=i;k<ciclistas.size();k++){
-				ciclistas[k].setID((ciclistas[k].getId()-1));
-			}
 		}
 		if(existe)
 			break;
@@ -86,9 +96,9 @@ bool Equipa::addMembro(Membro *membro1){
 }
 
 bool Equipa::removeMembro(string nome){
-	for (unsigned int i=0;i<membros.size();i++){
-		if (membros[i]->getNome() == nome){
-			membros.erase(membros.begin() + i);
+	for (vector<Membro*>::iterator it=membros.begin();it!=membros.end();it++){
+		if ((*it)->getNome() == nome){
+			membros.erase(it);
 			return true;
 		}
 	}
@@ -97,9 +107,11 @@ bool Equipa::removeMembro(string nome){
 
 string  Equipa::listaMassagistas(){
 	stringstream ss;
+	Membro * membro;
 	for(unsigned int i=0;i<membros.size();i++){
-		if(membros[i]->getTipo()=="massagista")
-			ss << membros[i]->info() << "\n";
+		membro=membros[i];
+		if(membro->getTipo()=="massagista")
+			ss << membro->info() << "\n";
 	}
 	return ss.str();
 }
@@ -111,9 +123,12 @@ void Equipa::addTempoProvaToCiclista(vector<TempoProva>){
 }
 */
 void Equipa::ciclistaDesistiu(int idCiclista){
+	Ciclista  *ciclista;
 	for(unsigned int i=0;i<ciclistas.size();i++){
-		if(ciclistas[i].getId()==idCiclista){
-			ciclistas[i].setDesistiu(true);
+		ciclista=&ciclistas[i];
+		if(ciclista->getId()==idCiclista){
+			ciclista->setDesistiu(true);
+
 		}
 	}
 }
@@ -121,9 +136,11 @@ void Equipa::ciclistaDesistiu(int idCiclista){
 Tempo Equipa::tempoMedioDaEquipa(){
 	Tempo tempoTotal(0,0,0);
 	Tempo tempoAuxiliar(0,0,0);
+	Ciclista ciclista;
 	if(ciclistas.size()>0){
 		for(unsigned int i=0;i<ciclistas.size();i++){
-			tempoAuxiliar=ciclistas[i].getTempoTotal();
+			ciclista=ciclistas[i];
+			tempoAuxiliar=ciclista.getTempoTotal();
 			tempoTotal=tempoTotal+tempoAuxiliar;
 		}
 		return tempoTotal/ciclistas.size();
@@ -134,25 +151,19 @@ Tempo Equipa::tempoMedioDaEquipa(){
 Ciclista Equipa::melhorClassificado() {
 	Tempo melhorTempo(99,99,99);
 	Tempo tempoAuxiliar(0,0,0);
-	char c;
-	Ciclista vector_vazio("unknown","unknown",c,1);
 	int melhorClassificado;
+	Ciclista ciclista;
 
-
-	if(ciclistas.size()>0){
 	for(unsigned int i=0;i<ciclistas.size();i++){
-
-		if(!ciclistas[i].getDesistiu()){
-			tempoAuxiliar=ciclistas[i].getTempoTotal();
+		ciclista=ciclistas[i];
+		if(!ciclista.getDesistiu()){
+			tempoAuxiliar=ciclista.getTempoTotal();
 			if(melhorTempo<tempoAuxiliar){
 				melhorClassificado=i;
 
 			}
 		}
 	}
-	}
-	else
-		return vector_vazio;
 
 	return ciclistas[melhorClassificado];
 
@@ -161,10 +172,12 @@ Ciclista Equipa::melhorClassificado() {
 
 vector<Ciclista> Equipa::ciclistasDesistentes() {
 	vector<Ciclista> ciclistasDesistentes;
+	Ciclista ciclista;
 	if(ciclistas.size()>0){
 		for(unsigned int i=0;i<ciclistas.size();i++){
-			if(ciclistas[i].getDesistiu()){
-				ciclistasDesistentes.push_back(ciclistas[i]);
+			ciclista=ciclistas[i];
+			if(ciclista.getDesistiu()){
+				ciclistasDesistentes.push_back(ciclista);
 			}
 		}
 	}
@@ -172,11 +185,13 @@ vector<Ciclista> Equipa::ciclistasDesistentes() {
 }
 
 void Equipa::showCiclistas(){
+	Ciclista ciclista;
 	for (unsigned int i=0;i<ciclistas.size();i++){
-		cout << "Nome: " << ciclistas[i].getNome() << "\n";
-		cout << "ID: " << ciclistas[i].getId() << "\n";
-		cout << "Pais: " << ciclistas[i].getNacionalidade() << "\n";
-		cout << "Idade: " << ciclistas[i].getIdade() << "\n\n";
+		ciclista=ciclistas[i];
+		cout << "Nome: " << ciclista.getNome() << "\n";
+		cout << "ID: " << ciclista.getId() << "\n";
+		cout << "Pais: " << ciclista.getNacionalidade() << "\n";
+		cout << "Idade: " << ciclista.getIdade() << "\n\n";
 	}
 }
 

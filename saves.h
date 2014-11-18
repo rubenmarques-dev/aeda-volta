@@ -22,11 +22,9 @@ using namespace std;
 void guardarMembro(vector<Membro*>membro, string ficheiro);
 
 vector<Membro*> loadMembro(string ficheiro);
-void saveCiclista(Ciclista ciclista);
-void saveCiclistas(vector<Ciclista> ciclistas);
 
 
 void saveEquipas(vector<Equipa> equipas);
-void saveEquipa(Equipa equipa1);
+
 
 #endif /* SRC_SAVES_H_ */
