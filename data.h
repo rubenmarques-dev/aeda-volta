@@ -11,6 +11,7 @@
 #include <vector>
 #include <string>
 #include <iostream>
+#include <sstream>
 
 using namespace std;
 
@@ -30,6 +31,7 @@ public:
 	bool operator<(const Data & data1);
 	bool operator==(const Data & data1);
 	void showData();
+	string info();
 };
 
 

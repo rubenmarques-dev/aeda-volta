@@ -33,6 +33,7 @@ public:
 	bool addEquipa(Equipa e1);
 	bool removeEquipa(int idEquipa);
 	vector<Equipa> & getEquipas();
+	vector<Equipa> getEquipas() const;
 	bool showEquipa(int idEquipa);
 	void addTempoToEtapa(int EtapaId,int idCiclista);
 };

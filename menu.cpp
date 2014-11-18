@@ -3,8 +3,11 @@
 
 
 string str_to_upper(string str){
-	for(unsigned int i=0;i<str.size();i++)
-		str[i]=toupper(str[i]);
+	char ch;
+	for(unsigned int i=0;i<str.size();i++){
+		ch=str[i];
+		str[i]=toupper(ch);
+	}
 	return str;
 }
 
@@ -17,9 +20,11 @@ void Menu::menuInicial(Volta v1){
 				<< "\t3 - Gestao de tempos" << endl;
 		cout << "\tOpção: ";
 		cin >> opt;
+		char ch;
 		try {
 			for (unsigned int i = 0; i < opt.size(); i++) {
-				if (!isdigit(opt[i])) {
+				ch=opt[i];
+				if (!isdigit(ch)) {
 					throw OpcaoIncorrecta();
 					//opti = 0;
 				}
@@ -71,9 +76,11 @@ void Menu::gestaoEquipas(Volta v1){
 		string opt;
 		cout << "\tOpção: ";
 		cin >> opt;
+		char ch;
 		try {
 			for (unsigned int i = 0; i < opt.size(); i++) {
-				if (!isdigit(opt[i])) {
+				ch=opt[i];
+				if (!isdigit(ch)) {
 					throw OpcaoIncorrecta();
 					//opti = 0;
 				}
@@ -123,9 +130,11 @@ void Menu::gestaoEquipa(Volta v1){
 	string opt;
 	cout << "\tOpção: ";
 	cin >> opt;
+	char ch;
 	try {
 		for (unsigned int i = 0; i < opt.size(); i++) {
-			if (!isdigit(opt[i]))
+			ch=opt[i];
+			if (!isdigit(ch)
 				throw OpcaoIncorrecta();
 		}
 	} catch (OpcaoIncorrecta) {
@@ -164,6 +173,8 @@ void Menu::gestaoEquipa(Volta v1){
 
 void Menu::adicionaEquipa(Volta v1){
 	string designacao, pais, patrocinador;
+	Equipa equipa;
+	vector<Equipa> equipas=v1.getEquipas();
 	cout << "\tInsira os dados da nova equipa.\nDesignacao: ";
 	cin.clear();
 	cin.ignore(100, '\n');

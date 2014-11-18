@@ -49,28 +49,29 @@ public:
 	//void alteraEtapa();
 	virtual string getTipo()=0;
 	bool addDesistencia(int idCiclista);
+	virtual int getDistanciaMontanha()=0;
 };
 
 class Normal:public Etapa{
 public:
 	Normal(string nome,string local,Data data, int distancia);
 	string getTipo();
+	int getDistanciaMontanha(){}
 };
 
 
 //uma prova genérica de ciclismo, em pelotão, onde é possível que exista uma secçao montanhosa
 
 class Montanha:public Etapa{
-	int montanhaKmInicio;  //km aonde a montanha começa na prova
-	int montanhaKmFim;		//km aonde a montanha acaba na prova
-	//vector<Classificacao> temposMontanha;
+	int distanciaMontanha;
 public:
-	Montanha(string nome,string local,Data data, int distancia,int montanhaKmInicio,int montanhaKmFim);
+	Montanha(string nome,string local,Data data, int distancia,int distanciaMontanha);
 	int getKMInicio();
 	int getKMFim();
 	int getDistanciaMontanha();
 	string getTipo();
 	//vector<Classificacao> getTemposMontanha();
+
 
 
 };
@@ -81,6 +82,7 @@ class ContraRelogio:public Etapa{
 public:
 	ContraRelogio(string nome,string local,Data data, int distancia);
 	string getTipo();
+	int getDistanciaMontanha(){}
 };
 
 #endif /* ETAPA_H_ */

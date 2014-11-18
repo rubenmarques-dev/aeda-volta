@@ -67,5 +67,12 @@ void Data::showData(){
 	cout << ano << "/" << mes << "/" << dia;
 }
 
+string Data::info(){
+	stringstream ss;
+	ss << ano << "/" << mes << "/" << dia;
+	return ss.str();
+
+}
+
 ///////////////// FIM CLASS DATA /////////////////////////
 

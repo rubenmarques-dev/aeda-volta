@@ -82,10 +82,15 @@ bool Volta::removeEtapa(int idEtapa){
 vector<Equipa>& Volta::getEquipas() {
 	return equipas;
 }
+vector<Equipa> Volta::getEquipas() const{
+	return equipas;
+}
 
 bool Volta::addEquipa(Equipa e1){
+	Equipa equipa;
 	for (unsigned int i=0;i<equipas.size();i++){
-		if (equipas[i].getDesignacao() == e1.getDesignacao())
+		equipa=equipas[i];
+		if (equipa.getDesignacao() == e1.getDesignacao())
 			return false;
 	}
 	equipas.push_back(e1);
@@ -93,14 +98,10 @@ bool Volta::addEquipa(Equipa e1){
 }
 
 bool Volta::removeEquipa(int idEquipa){
-	for (unsigned int i=0;i<equipas.size();i++){
-		if (equipas[i].getIdEquipa() == idEquipa){
-			equipas.erase(equipas.begin() + i);
+	for (vector<Equipa>::iterator it=equipas.begin();it!=equipas.end();it++){
+		if ((*it).getIdEquipa() == idEquipa){
+			equipas.erase(it);
 			//removeCiclistas(idEquipa);
-			for (unsigned int k=i;k<equipas.size();k++){
-				equipas[k].setIdEquipa(equipas[k].getIdEquipa()-1);
-			}
-			return true;
 		}
 
 	}

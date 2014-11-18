@@ -93,9 +93,8 @@ string Normal::getTipo() {
 
 ////////////////INICIO CLASS ETAPA MONTANHA ////////////////////////
 
-Montanha::Montanha(string nome,string local,Data data, int distancia,int montanhaKmInicio,int montanhaKmFim):Etapa(nome,local,data,distancia){
-	this->montanhaKmInicio=montanhaKmInicio;
-	this->montanhaKmFim=montanhaKmFim;
+Montanha::Montanha(string nome,string local,Data data, int distancia,int distanciaMontanha):Etapa(nome,local,data,distancia){
+	this->distanciaMontanha=distanciaMontanha;
 }
 
 int Montanha::getKMInicio() {
@@ -107,11 +106,11 @@ int Montanha::getKMFim() {
 }
 
 int Montanha::getDistanciaMontanha() {
-	return montanhaKmFim - montanhaKmInicio;
+	return distanciaMontanha;
 }
 
 string Montanha::getTipo() {
-	return "Montanha";
+	return "montanha";
 }
 
 ///////////////FIM CLASS ETAPA MONTANHA /////////////////////////

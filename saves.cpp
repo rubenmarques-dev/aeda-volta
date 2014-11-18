@@ -8,27 +8,6 @@
 #include <sstream>
 
 
-string ficheiroEquipa(int idEquipa){
-	stringstream ss;
-	if(idEquipa<10)
-		ss << "equipa0" << idEquipa << ".txt";
-	else
-		ss << "equipa" << idEquipa << ".txt";
-	return ss.str();
-}
-
-string ficheiroCiclista(int id){
-	stringstream ss;
-	if(id>=100)
-		ss << "ciclista" << id;
-	else if(id>=10)
-		ss << "ciclista0" << id;
-	else
-		ss << "ciclista00" << id;
-
-
-	return ss.str();
-}
 
 
 
@@ -96,6 +75,102 @@ void saveEquipas(vector<Equipa> equipas){
 
 
 }
+
+void saveEtapas(vector<Etapa*> etapas){
+	ofstream doc;
+	doc.open("etapas.txt", ofstream::out);
+	Etapa* etapa;
+	if (doc.is_open())
+	{
+		doc << etapas.size();
+		for(unsigned int i=0;i<etapas.size();i++){
+			etapa=etapas[i];
+			doc << etapa->getTipo() << endl;
+			doc << etapa->getIdEtapa() << endl;
+			doc << etapa->getNome() << endl;
+			doc << etapa->getLocal() << endl;
+			doc << etapa->getData().info() << endl;
+			doc << etapa->getDistancia() << endl;
+			if(etapa->getTipo()=="montanha"){
+				doc << etapa->getDistanciaMontanha();
+			}
+
+			doc << "endEtapa" << endl;
+
+		}
+	}
+	doc.close();
+}
+
+vector<Etapa*>  loadEtapas(){
+	vector<Membro*> membrotemp;
+	ifstream doc;
+	Etapa* etapa;
+	string numEtapas;
+	int size;
+	string emBranco;
+	string tipo;
+	string idEtapa;
+	string nome;
+	string local;
+	string data;
+	string distancia;
+	string distanciaMontanha;
+	int distanciaInt;
+	int distanciaMontanhaInt;
+	int idEtapaInt;
+	ifstream myfile ("etapas.txt");
+	 if (myfile.is_open())
+	  {
+		 getline(doc, numEtapas);
+		 size=atoi(numEtapas.c_str());
+
+		 for(int i=0;i<size;i++){
+			 getline(doc, tipo);
+			 getline(doc, idEtapa);
+			 getline(doc, nome);
+			 getline(doc, local);
+			 getline(doc, data);
+			 getline(doc, distancia);
+			 if(tipo=="montanha")
+			 getline(doc, distanciaMontanha);
+			 distanciaInt=atoi(distancia.c_str());
+			 distanciaMontanhaInt=atoi(distanciaMontanha.c_str());
+			 idEtapaInt=atoi(idEtapa.c_str());
+			 if(tipo=="montanha")
+
+
+		 }
+
+	  }
+
+}
+
+Data getData(string data){
+	char ch;
+	stringstream ss;
+	int ano, mes, dia;
+	int contador=0;
+	for(int i=0;i<data.size();i++){
+		ch=data[i];
+		if(ch != '/')
+			ss << ch;
+		else
+		{
+			if(contador == 0)
+				ano=atoi(ss.str().c_str());
+			if(contador == 1)
+				mes=atoi(ss.str().c_str());
+			ss.str("");
+		}
+	}
+	dia=ano=atoi(ss.str().c_str());
+	Data d(ano,mes,dia);
+	return d;
+}
+
+
+
 
 
 
